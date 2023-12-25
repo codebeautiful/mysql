@@ -70,6 +70,8 @@ func (s *Store) Create(ctx context.Context, info oauth2.TokenInfo) error {
 		Data: string(buf),
 	}
 
+	item.UserID = info.GetUserID()
+
 	if code := info.GetCode(); code != "" {
 		item.Code = code
 		item.ExpiredAt = info.GetCodeCreateAt().Add(info.GetCodeExpiresIn()).Unix()

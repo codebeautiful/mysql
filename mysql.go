@@ -16,6 +16,7 @@ type StoreItem struct {
 	Access    string `db:"access,size:255"`
 	Refresh   string `db:"refresh,size:255"`
 	Data      string `db:"data,size:2048"`
+	UserID    string `db:"user_id,size:16"`
 }
 
 // NewConfig create mysql configuration instance
@@ -97,6 +98,7 @@ func NewStoreWithOpts(db *sql.DB, opts ...Option) *Store {
 	table.AddIndex("idx_access", "Btree", []string{"access"})
 	table.AddIndex("idx_refresh", "Btree", []string{"refresh"})
 	table.AddIndex("idx_expired_at", "Btree", []string{"expired_at"})
+	table.AddIndex("idx_user_id", "Btree", []string{"user_id"})
 
 	err := store.db.CreateTablesIfNotExists()
 	if err != nil {
